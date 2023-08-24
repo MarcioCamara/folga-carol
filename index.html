@@ -1,0 +1,116 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folga da Carol</title>
+
+    <style>
+        body {
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            font-size: 5em;
+        }
+
+        .response {
+            margin-top: 24px;
+            margin-bottom: 48px;
+            font-size: 2.5em;
+            border: 1px solid #ccc;
+            padding: 8px;
+            min-width: 120px;
+            display: flex;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .nextDayOff {
+            font-size: 3em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <span class="title">É folga da Carol?</span>
+
+        <div class="response" id="response"></div>
+
+        <div class="nextDayOff" id="nextDayOff"></div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            const daysOff = [
+                new Date(2023, 7, 28).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 8, 3).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 8, 9).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 8, 15).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 8, 21).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 8, 27).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 9, 3).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 9, 9).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 9, 15).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 9, 21).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 9, 27).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 10, 2).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 10, 8).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 10, 14).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 10, 20).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 10, 26).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 11, 2).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 11, 8).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 11, 14).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 11, 20).setHours(0, 0, 0, 0, 0, 0),
+                new Date(2023, 11, 26).setHours(0, 0, 0, 0, 0, 0),
+            ];
+
+            const today = new Date().setHours(0, 0, 0, 0, 0, 0);
+            let nextDayOffIndex = null;
+
+            for (let i = 0; i < daysOff.length; i++) {
+                const dayOff = daysOff[i];
+
+                console.log(today);
+
+                if (dayOff > today) {
+                    if (nextDayOffIndex === null) {
+                        nextDayOffIndex = i;
+                    }
+
+                    document.getElementById('response').innerHTML = `NÃO 💔`;
+                    document.getElementById('response').style.backgroundColor = '#eee';
+                    document.getElementById('response').style.borderColor = '#ccc';
+                    document.getElementById('nextDayOff').innerHTML = `Próxima folga: ${new Date(daysOff[nextDayOffIndex]).toLocaleDateString()} <br> (${new Date(daysOff[nextDayOffIndex]).toLocaleString('pt-br', { weekday: 'long', })})`;
+
+                    return;
+                } else if (dayOff < today) {
+                } else {
+                    nextDayOffIndex = i + 1;
+
+                    document.getElementById('response').innerHTML = 'SIM ❤️';
+                    document.getElementById('response').style.backgroundColor = '#8d8';
+                    document.getElementById('response').style.borderColor = '#6a6';
+                    document.getElementById('nextDayOff').innerHTML = `Próxima folga: ${new Date(daysOff[nextDayOffIndex]).toLocaleDateString()} <br> (${new Date(daysOff[nextDayOffIndex]).toLocaleString('pt-br', { weekday: 'long', })})`;
+
+                    return;
+                }
+            }
+
+        };
+    </script>
+</body>
+
+</html>
